@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace ConsoleApplication1
+namespace GradeScoresNS
 {
-    class Program
+    public class GradeScoresProgram
     {
         static void Main(string[] args)
         {
             string path = args[0];
-            List<String> result = getSortedRows(File.ReadLines(path).ToList<String>());
+            GradeScoresProgram program = new GradeScoresProgram();
+            List<String> result = program.sortRows(File.ReadLines(path).ToList<String>());
             
             string outPath = path.Insert(path.LastIndexOf("."),"-graded.");
             File.WriteAllLines(outPath, result);
@@ -19,7 +20,7 @@ namespace ConsoleApplication1
             //result.ForEach(x => Console.WriteLine(x));
         }
 
-        public static List<String> getSortedRows(List<String> lines)
+        public List<String> sortRows(List<String> lines)
         {
             List<Row> rows = lines.ConvertAll(line => new Row(line));
             rows.Sort();
@@ -29,6 +30,9 @@ namespace ConsoleApplication1
 
     }
 
+    ///
+    ///Represents a parsed row
+    ///
     class Row : IComparable<Row>
     {
 
